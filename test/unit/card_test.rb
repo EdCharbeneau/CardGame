@@ -10,5 +10,9 @@ class CardTest < ActiveSupport::TestCase
     card = Card.new(:ace, :spade)
     assert card.to_s == "Ace of Spades"
   end
+  test "can evaluate numeric value" do
+    card = Card.new(:ace, :spade)
+    assert card.numeric_value == 14
+  end
 
 end
