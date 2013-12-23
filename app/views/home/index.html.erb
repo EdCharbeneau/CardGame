@@ -1,12 +1,13 @@
 <h1>Game</h1>
-<ul>
-  <% @game.hands.each do |hand| %>
+<h2>The winner is <%= @game.players[@scorer.winning_hand.id] %> with a <%= @scorer.winning_hand.rank.to_s.capitalize.tr("_"," ") %> </h2>
+<div>
+   <% @game.hands.each do |hand| %>
+      <div><%= @game.players[hand.id] %></div>
       <ul>
-        <li><%= hand.rank %></li>
         <% hand.cards.each do |card| %>
             <li><%= card %></li>
         <% end %>
       </ul>
       <hr>
   <% end %>
-</ul>
+</div>

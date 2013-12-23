@@ -1,5 +1,5 @@
 class Game
-  attr_reader :deck, :hands
+  attr_reader :deck, :hands, :players
 
   def initialize(names = ["A","B","C","D"])
     initialize_players(names)
@@ -16,6 +16,7 @@ class Game
     @players = Hash.new(0)
     names.each { |name| @players[SecureRandom.uuid] = name }
   end
+
   def initialize_hands
     @hands = []
     @players.keys.each {|player| @hands << Hand.new(player) }
