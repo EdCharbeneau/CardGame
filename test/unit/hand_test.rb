@@ -75,7 +75,6 @@ class HandTest < ActiveSupport::TestCase
     hand.draw Card.new(:king, :spade)
     hand.draw Card.new(:nine, :spade)
     hand.draw Card.new(:ace, :spade)
-    puts hand.rank
     assert hand.rank == :flush, "Incorrect rank given"
   end
 
