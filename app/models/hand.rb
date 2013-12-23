@@ -14,6 +14,10 @@ class Hand
     end
   end
 
+  def draw_from(deck)
+    draw(deck.deal)
+  end
+
   def hand_is_full?
     @cards.length == 5
   end

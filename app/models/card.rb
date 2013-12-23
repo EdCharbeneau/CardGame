@@ -1,4 +1,5 @@
 class Card
+
   @@suits = [:club, :spade, :diamond, :heart]
   @@values = {
       :two => 2,
@@ -31,6 +32,15 @@ class Card
   def to_s
     @value.to_s.capitalize << " of " << @suit.to_s.capitalize.pluralize
   end
+
+  def self.all_suits
+    @@suits
+  end
+
+  def self.all_values
+    @@values
+  end
+
   private
 
 end
