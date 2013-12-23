@@ -8,7 +8,7 @@ class Game
   end
 
   def start
-   @hands.each {|hand| @deck.deal_to hand}
+   5.times {@hands.each {|hand| @deck.deal_to hand}}
   end
 
   private
