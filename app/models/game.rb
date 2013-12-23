@@ -8,11 +8,7 @@ class Game
   end
 
   def start
-<<<<<<< HEAD
-    5.times {@hands.each {|hand| @deck.deal_to hand}}
-=======
    @hands.each {|hand| @deck.deal_to hand}
->>>>>>> add-identifers-to-hands
   end
 
   private
