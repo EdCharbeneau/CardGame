@@ -37,7 +37,6 @@ class HandTest < ActiveSupport::TestCase
     assert hand.rank == :two_pair, "Incorrect rank given"
   end
 
-
   test "Can rank a three of a kind" do
     hand = Hand.new
     hand.draw Card.new(:two, :spade)
