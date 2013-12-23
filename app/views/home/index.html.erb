@@ -1,0 +1,12 @@
+<h1>Game</h1>
+<ul>
+  <% @game.hands.each do |hand| %>
+      <ul>
+        <li><%= hand.rank %></li>
+        <% hand.cards.each do |card| %>
+            <li><%= card %></li>
+        <% end %>
+      </ul>
+      <hr>
+  <% end %>
+</ul>
