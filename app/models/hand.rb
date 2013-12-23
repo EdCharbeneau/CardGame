@@ -15,6 +15,7 @@ class Hand
   end
 
   def rank
+    find_pairs
     # A straight from a ten to an ace with all five cards of the same suit. In poker all suits are ranked equally.
     return :royal_flush if is_flush? && has_all_royal_values?
     # Any straight with all five cards of the same suit.
@@ -50,6 +51,13 @@ class Hand
   end
 
   private
+
+  def find_pairs
+    @pairs = Hash.new(0)
+    #gets the pairs and counts the number "of a kind"
+    cards.each { |c| @pairs[c.value] += 1 }
+  end
+
   def is_flush?
     card_suits.uniq.length == 1
   end
@@ -75,34 +83,28 @@ class Hand
     card_values.all? { |x| royal_values.include?(x) }
   end
 
-  def find_pairs
-    pairs = Hash.new(0)
-    #gets the pairs and counts the number "of a kind"
-    cards.each { |c| pairs[c.value] += 1 }
-    pairs
+  def n_of_a_kind?(number)
+    @pairs.any? { |k, count| count > number - 1 }
   end
 
   def has_pair?
-    find_pairs.any? { |k, count| count > 1 }
+    n_of_a_kind?(2)
+  end
+
+  def has_three_of_a_kind?
+    n_of_a_kind?(3)
+  end
+
+  def has_four_of_a_kind?
+    n_of_a_kind?(4)
   end
 
   def has_two_pair?
-    pairs_counted = find_pairs.count { |_, pair| pair > 1 }
+    pairs_counted = @pairs.count { |_, pair| pair > 1 }
     pairs_counted > 1
   end
 
   def is_full_house?
-    find_pairs[0] == 2 && find_pairs[1] == 3 || find_pairs[0] == 3 && find_pairs[1] == 2
+    @pairs[0] == 2 && @pairs[1] == 3 || @pairs[0] == 3 && @pairs[1] == 2
   end
-
-  def has_three_of_a_kind?
-    find_pairs.any? { |k, count| count > 2 }
-  end
-
-  def has_four_of_a_kind?
-    find_pairs.any? { |k, count| count > 3 }
-  end
-
-
-
 end
