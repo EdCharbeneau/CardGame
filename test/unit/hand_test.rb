@@ -59,6 +59,7 @@ class HandTest < ActiveSupport::TestCase
   end
 
   test "Can rank a straight using a low value ace" do
+    #a.k.a a sucker straight
     hand = Hand.new
     hand.draw Card.new(:five, :spade)
     hand.draw Card.new(:three, :heart)

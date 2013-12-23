@@ -6,15 +6,41 @@ class Hand
   end
 
   def draw(card)
+    raise "Hand is full" if hand_is_full?
     @cards << card
+    if hand_is_full?
+      sort_cards!
+      @rank = get_rank
+    end
+  end
+
+  def hand_is_full?
+    @cards.length == 5
   end
 
   def high_card
-    sorted_cards = cards.sort { |a, b| a.numeric_value <=> b.numeric_value }
-    sorted_cards.last
+    @cards.last
   end
 
   def rank
+    return :empty_or_partial_hand unless hand_is_full?
+    @rank
+  end
+
+  def to_s
+    @cards.each { |card| card.to_s }
+  end
+
+  private
+  def card_suits
+    @cards.map { |card| card.suit }
+  end
+
+  def card_values
+    @cards.map { |card| card.value }
+  end
+
+  def get_rank
     find_pairs
     # A straight from a ten to an ace with all five cards of the same suit. In poker all suits are ranked equally.
     return :royal_flush if is_flush? && has_all_royal_values?
@@ -38,24 +64,14 @@ class Hand
     :high_card
   end
 
-  def to_s
-    cards.each { |card| card.to_s }
+  def sort_cards!
+    @cards.sort! { |a, b| a.numeric_value <=> b.numeric_value }
   end
-
-  def card_suits
-    cards.map { |card| card.suit }
-  end
-
-  def card_values
-    cards.map { |card| card.value }
-  end
-
-  private
 
   def find_pairs
     @pairs = Hash.new(0)
     #gets the pairs and counts the number "of a kind"
-    cards.each { |c| @pairs[c.value] += 1 }
+    @cards.each { |c| @pairs[c.value] += 1 }
   end
 
   def is_flush?
@@ -64,18 +80,23 @@ class Hand
 
   def is_straight?
     consecutive = 0
-    sorted_cards = cards.sort { |a, b| a.numeric_value <=> b.numeric_value }
     for i in (0..3)
-      if sorted_cards[i + 1].numeric_value == sorted_cards[i].numeric_value + 1
+      if @cards[i + 1].numeric_value == @cards[i].numeric_value + 1
         consecutive += 1
       end
     end
-    if sorted_cards.last.value == :ace && sorted_cards.first.value == :two
-      sorted_cards.unshift(sorted_cards.last)
-      sorted_cards.delete_at(5)
-      consecutive += 1
+    return true if consecutive == 4
+    if is_sucker_straight?(consecutive)
+      @cards.unshift(@cards.last)
+      @cards.delete_at(5)
+      true
+    else
+      false
     end
-    consecutive == 4
+  end
+
+  def is_sucker_straight?(consecutive)
+    @cards.last.value == :ace && @cards.first.value == :two && consecutive == 3
   end
 
   def has_all_royal_values?
