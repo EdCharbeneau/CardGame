@@ -1,3 +1,45 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$th-background-color: #edeff0;
+$th-content-color: #fff;
+
+body {
+  background-color: $th-background-color;
+}
+
+.button-primary {
+  background-color: #5fcf80;
+  border-color: #3ac162;
+  &:hover {
+    background: #4fca74;
+    border-color: #35b15a;
+  }
+}
+
+.hand {
+  padding: 50px;
+  margin: 10px;
+  background-color: $th-content-color;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.cards, .alert-box {
+  visibility: hidden;
+  display: none;
+}
+
+.You {
+  background-color: #ccc;
+  .cards {
+    visibility: visible;
+    display: inline;
+  }
+}
