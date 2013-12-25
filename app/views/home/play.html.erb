@@ -8,58 +8,16 @@
     <div class="row">
       <div class="large-6 columns">
         <% @game.hands.take(2).each do |hand| %>
-            <div class="hand <%= @game.players[hand.id] %>">
-              <div class="row">
-                <div class="large-2 columns text-center">
-                  <div class="avatar" style="background: #fff url(/assets/<%=  @game.players[hand.id].downcase.tr(" " , "-") %>.jpg) no-repeat top center; background-size: auto 100%;"></div>
-                  <span class="player-name"><%= @game.players[hand.id] %></span>
-                </div>
-                <div class="large-10 columns">
-                  <ul class="large-block-grid-5 cards">
-                    <% hand.cards.each do |card| %>
-                        <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <%= render partial: 'computer_player', locals: {hand: hand, game: @game, reveal_cards: true} %>
         <% end %>
       </div>
       <div class="large-6 columns">
         <% @game.hands.drop(2).take(2).each do |hand| %>
-            <div class="hand <%= @game.players[hand.id] %>">
-              <div class="row">
-                <div class="large-2 columns text-center">
-                  <div class="avatar" style="background: #fff url(/assets/<%=  @game.players[hand.id].downcase.tr(" " , "-") %>.jpg) no-repeat top center; background-size: auto 100%;"></div>
-                  <span class="player-name"><%= @game.players[hand.id] %></span>
-                </div>
-                <div class="large-10 columns">
-                  <ul class="large-block-grid-5 cards">
-                    <% hand.cards.each do |card| %>
-                        <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <%= render partial: 'computer_player', locals: {hand: hand, game: @game, reveal_cards: true} %>
         <% end %>
       </div>
     </div>
-    <div class="hand <%= @game.players[@game.hands.last.id] %>">
-      <div class="row">
-        <div class="large-2 columns text-center">
-          <div class="avatar" style="background: #fff url(/assets/<%=  @game.players[@game.hands.last.id].downcase.tr(" " , "-") %>.jpg) no-repeat top center; background-size: auto 100%;"></div>
-          <span class="player-name"><%= @game.players[@game.hands.last.id] %></span>
-        </div>
-        <div class="large-10 columns">
-          <ul class="large-block-grid-5 cards">
-            <% @game.hands.last.cards.each do |card| %>
-                <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'human_player', locals: { game: @game } %>
     <a href="/home" class="button button-primary expand">Play again?</a>
   </div>
 </div>
