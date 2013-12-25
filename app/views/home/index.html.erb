@@ -4,21 +4,61 @@
 
     <div class="alert-box">The winner is <%= @game.players[@scorer.winning_hand.id] %> with
       a <%= @scorer.winning_hand.rank.to_s.capitalize.tr("_", " ") %> </div>
-
-    <% @game.hands.each do |hand| %>
-        <div class="hand <%= @game.players[hand.id] %>">
-          <div class="row">
-            <div class="large-2 columns"><%= @game.players[hand.id] %></div>
-            <div class="large-10 columns">
-              <ul class="large-block-grid-5 cards">
-                <% hand.cards.each do |card| %>
-                    <li><%= card %></li>
-                <% end %>
-              </ul>
+    <div class="row">
+      <div class="large-6 columns">
+        <% @game.hands.take(2).each do |hand| %>
+            <div class="hand <%= @game.players[hand.id] %>">
+              <div class="row">
+                <div class="large-2 columns text-center">
+                  <div class="avatar" style="background: #fff url(/assets/<%=  @game.players[hand.id].downcase.tr(" " , "-") %>.jpg) no-repeat top center; background-size: auto 100%;"></div>
+                  <span class="player-name"><%= @game.players[hand.id] %></span>
+                </div>
+                <div class="large-10 columns">
+                  <ul class="large-block-grid-5 cards">
+                    <% hand.cards.each do |card| %>
+                        <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
+        <% end %>
+      </div>
+      <div class="large-6 columns">
+        <% @game.hands.drop(2).take(2).each do |hand| %>
+            <div class="hand <%= @game.players[hand.id] %>">
+              <div class="row">
+                <div class="large-2 columns text-center">
+                  <div class="avatar" style="background: #fff url(/assets/<%=  @game.players[hand.id].downcase.tr(" " , "-") %>.jpg) no-repeat top center; background-size: auto 100%;"></div>
+                  <span class="player-name"><%= @game.players[hand.id] %></span>
+                </div>
+                <div class="large-10 columns">
+                  <ul class="large-block-grid-5 cards">
+                    <% hand.cards.each do |card| %>
+                        <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="hand <%= @game.players[@game.hands.last.id] %>">
+      <div class="row">
+        <div class="large-2 columns text-center">
+          <div class="avatar" style="background: #fff url(/assets/<%=  @game.players[@game.hands.last.id].downcase.tr(" " , "-") %>.jpg) no-repeat top center; background-size: auto 100%;"></div>
+          <span class="player-name"><%= @game.players[@game.hands.last.id] %></span>
         </div>
-    <% end %>
+        <div class="large-10 columns">
+          <ul class="large-block-grid-5 cards">
+            <% @game.hands.last.cards.each do |card| %>
+                <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
     <a href="#" class="button button-primary expand">Display the winner</a>
   </div>
 </div>

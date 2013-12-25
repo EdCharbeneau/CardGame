@@ -9,8 +9,19 @@ body {
 }
 
 .button-primary {
-  background-color: #5fcf80;
-  border-color: #3ac162;
+  font-weight: bold !important;
+  text-shadow: 0 1px 0px rgba(0,0,0,0.15);
+  border-width: 1px 1px 3px;
+  border-style: solid;
+  border-color: #3dc264;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  -moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
   &:hover {
     background: #4fca74;
     border-color: #35b15a;
@@ -18,8 +29,8 @@ body {
 }
 
 .hand {
-  padding: 50px;
-  margin: 10px;
+  padding: 10px;
+  margin: 10px 0;
   background-color: $th-content-color;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -31,13 +42,30 @@ body {
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
-.cards, .alert-box {
-  visibility: hidden;
-  display: none;
+.cards img,  {
+  border-radius:4%;
+}
+
+.avatar {
+  border: none;
+  height: 55px;
+  width: 55px;
+  -webkit-border-radius: 85px;
+  -moz-border-radius: 85px;
+  -ms-border-radius: 85px;
+  -o-border-radius: 85px;
+  border-radius: 85px;
+  margin:auto;
+}
+
+.player-name {
+  display:block;
+  padding:10px;
 }
 
 .You {
-  background-color: #ccc;
+  background-color: #2d3339;
+  color: #fff;
   .cards {
     visibility: visible;
     display: inline;
