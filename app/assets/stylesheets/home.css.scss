@@ -43,7 +43,12 @@ body {
 }
 
 .cards img,  {
-  border-radius:4%;
+  border-radius:3px;
+}
+
+
+.You .cards img,  {
+  border-radius:8px;
 }
 
 .avatar {

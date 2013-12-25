@@ -1,5 +1,9 @@
 CardGame::Application.routes.draw do
-  resources :home
+  resources :home do
+    collection do
+      get 'play'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
