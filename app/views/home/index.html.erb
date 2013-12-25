@@ -1,9 +1,6 @@
 <div class="row">
   <div class="large-12 columns">
     <h1>Treehouse Poker</h1>
-
-    <div class="alert-box">The winner is <%= @game.players[@scorer.winning_hand.id] %> with
-      a <%= @scorer.winning_hand.rank.to_s.capitalize.tr("_", " ") %> </div>
     <div class="row">
       <div class="large-6 columns">
         <% @game.hands.take(2).each do |hand| %>
@@ -16,7 +13,7 @@
                 <div class="large-10 columns">
                   <ul class="large-block-grid-5 cards">
                     <% hand.cards.each do |card| %>
-                        <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
+                        <li><%= image_tag("/assets/cards/back-panel.png") %></li>
                     <% end %>
                   </ul>
                 </div>
@@ -35,7 +32,7 @@
                 <div class="large-10 columns">
                   <ul class="large-block-grid-5 cards">
                     <% hand.cards.each do |card| %>
-                        <li><img src="/assets/cards/<%= card.to_s.downcase.tr(" ","-") %>.png"></li>
+                        <li><%= image_tag("/assets/cards/back-panel.png") %></li>
                     <% end %>
                   </ul>
                 </div>
@@ -59,6 +56,6 @@
         </div>
       </div>
     </div>
-    <a href="#" class="button button-primary expand">Display the winner</a>
+    <a href="/home/play" class="button button-primary expand">Display the winner</a>
   </div>
 </div>
