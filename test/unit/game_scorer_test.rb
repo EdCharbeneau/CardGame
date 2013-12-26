@@ -37,6 +37,29 @@ class GameScorerTest < ActiveSupport::TestCase
     assert scorer_b.winning_hand == royal_flush
   end
 
+  test "Can find winning hand when two hands are a pair" do
+
+    pair1 = Hand.new
+    pair1.draw Card.new(:six, :spade)
+    pair1.draw Card.new(:seven, :club)
+    pair1.draw Card.new(:jack, :club)
+    pair1.draw Card.new(:queen, :heart)
+    pair1.draw Card.new(:queen, :heart)
+
+    pair2 = Hand.new
+    pair2.draw Card.new(:four, :spade)
+    pair2.draw Card.new(:five, :spade)
+    pair2.draw Card.new(:eight, :club)
+    pair2.draw Card.new(:eight, :heart)
+    pair2.draw Card.new(:ace, :club)
+
+    scorer_a = GameScorer.new([pair1, pair2])
+    scorer_b = GameScorer.new([pair2, pair1])
+
+    assert scorer_a.winning_hand == pair1, "Incorrect hand chosen: #{scorer_a.winning_hand.rank} - #{scorer_a.winning_hand.high_card}"
+    assert scorer_b.winning_hand == pair1, "Incorrect hand chosen: #{scorer_a.winning_hand.rank} - #{scorer_a.winning_hand.high_card}"
+  end
+
 #Poker rules: If a winning hand cannot be determined by it's rank, then the winner is chosen by high card
   test "Can find winning hand by high card" do
     ace_high = Hand.new

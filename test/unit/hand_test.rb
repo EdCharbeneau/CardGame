@@ -37,6 +37,16 @@ class HandTest < ActiveSupport::TestCase
     assert hand.rank == :two_pair, "Incorrect rank given"
   end
 
+  test "Can get highest pair value" do
+    hand = Hand.new
+    hand.draw Card.new(:two, :spade)
+    hand.draw Card.new(:queen, :spade)
+    hand.draw Card.new(:queen, :diamond)
+    hand.draw Card.new(:six, :club)
+    hand.draw Card.new(:six, :spade)
+    assert hand.highest_pair_value == 12, "Incorrect value given"
+  end
+
   test "Can rank a three of a kind" do
     hand = Hand.new
     hand.draw Card.new(:two, :spade)

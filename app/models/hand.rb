@@ -1,5 +1,5 @@
 class Hand
-  attr_accessor :cards, :id
+  attr_accessor :cards, :id, :pairs
 
   def initialize(id = 0)
     @id = id
@@ -25,6 +25,10 @@ class Hand
 
   def high_card
     @cards.last
+  end
+
+  def highest_pair_value
+    @pairs.keys.map {|k| Card.all_values[k]}.max
   end
 
   def rank
@@ -77,6 +81,7 @@ class Hand
     @pairs = Hash.new(0)
     #gets the pairs and counts the number "of a kind"
     @cards.each { |c| @pairs[c.value] += 1 }
+    @pairs.select! {|k,v| v > 1}
   end
 
   def is_flush?

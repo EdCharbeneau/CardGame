@@ -25,7 +25,8 @@ class GameScorer
     #sort by rank, else defer to the high card
     lambda do |a, b|
       hand_order = @@hand_rankings[a.rank] <=> @@hand_rankings[b.rank]
-      hand_order != 0 ? hand_order : a.high_card.numeric_value <=> b.high_card.numeric_value
+      hand_order = hand_order != 0 ? hand_order : a.highest_pair_value <=> b.highest_pair_value
+      hand_order = hand_order != 0 ? hand_order : a.high_card.numeric_value <=> b.high_card.numeric_value
     end
   end
 
