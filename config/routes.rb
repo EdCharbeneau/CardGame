@@ -1,9 +1,9 @@
 CardGame::Application.routes.draw do
-  resources :home do
-    collection do
-      get 'play'
-    end
-  end
+  match 'home' => 'home#index'
+  match 'home/play' => 'home#play'
+
+  root :to => 'home#index'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
