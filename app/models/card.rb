@@ -40,7 +40,4 @@ class Card
   def self.all_values
     @@values
   end
-
-  private
-
 end
