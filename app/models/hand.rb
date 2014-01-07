@@ -62,7 +62,7 @@ class Hand
     # Any five cards of the same suit (not consecutive). The highest card of the five determines the rank of the flush. Our example shows an Ace-high flush, which is the highest possible.
     return :flush if is_flush?
     # Any five consecutive cards of different suits. Aces can count as either a high or a low card. Our example shows a five-high straight, which is the lowest possible straight.
-    return :straight if is_straight?
+    return :straight if is_straight? || is_sucker_straight?
     # Any three cards of the same rank. Our example shows three-of-a-kind Aces, with a King and a Queen as side cards - the best possible three of a kind.
     return :three_of_a_kind if has_three_of_a_kind?
     # Any two cards of the same rank together with another two cards of the same rank. Our example shows the best possible two-pair, Aces and Kings. The highest pair of the two determines the rank of the two-pair.
@@ -89,24 +89,25 @@ class Hand
   end
 
   def is_straight?
-    consecutive = 0
-    for i in (0..3)
-      if @cards[i + 1].numeric_value == @cards[i].numeric_value + 1
-        consecutive += 1
-      end
-    end
-    return true if consecutive == 4
-    if is_sucker_straight?(consecutive)
-      @cards.unshift(@cards.last)
-      @cards.delete_at(5)
-      true
-    else
-      false
-    end
+    consecutive_card_count == 4
   end
 
-  def is_sucker_straight?(consecutive)
-    @cards.last.value == :ace && @cards.first.value == :two && consecutive == 3
+  def is_sucker_straight?
+    if @cards.last.value == :ace && @cards.first.value == :two && consecutive_card_count == 3
+      @cards.unshift(@cards.pop) #move the Ace to the front of the hand
+      return true
+    end
+    false
+  end
+
+  def consecutive_card_count
+    consecutive_count = 0
+    @cards.each_cons(2) { |card, next_card| consecutive_count += 1 if are_consecutive_cards?(card, next_card) }
+    consecutive_count
+  end
+
+  def are_consecutive_cards?(card, next_card)
+    card.numeric_value.succ == next_card.numeric_value
   end
 
   def has_all_royal_values?
